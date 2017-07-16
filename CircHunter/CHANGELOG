@@ -1,0 +1,106 @@
+==========
+0.0.1
+==========
+circhunter.sh
+	Changes for GUI launcher (CircHunter.sh)
+
+==========
+0.0.2
+==========
+circhunter.sh
+	Absolute path when using command line
+
+==========
+0.0.3
+==========
+circhunter.sh
+	Added file existence checks
+
+==========
+0.0.4
+==========
+circhunter.sh
+	Fixed execution mode arguments
+	Fixed execution mode argument (main R script)
+	Fixed gui mode recognition
+	Fixed execution mode argument (gui)
+	Implemented isoform data mount point
+
+help.sh
+	Fixed help file
+
+Docker image
+	Renamed CirRNA folder into hashcirc folder
+
+r_hashcirc.R
+	r_hc_conversion.r completed. File conversion.
+	r_hashcirc.R now manages both file conversion and HashCirc execution
+	implemented HashCirc command string (step 1)
+	implemented HashCirc command string (step 2)
+
+==========
+0.0.5
+==========
+circhunter.sh
+	added test execution mode (does not launch docker)	
+	implement output folder
+	implemented output folder (gui)
+
+help.sh
+	Added output folder description
+
+main.R
+	checks if isoform information data must be downloaded
+	isoform_info.R is implemented
+	final operation to move results if output data was provided
+	implement univocal classification
+    implement post-univocal classification
+
+isoform.R
+	The whole main_isoform.sh script is ported into isoform.R
+    Rework all main isoform
+    implement post-univocal classification
+
+Docker image
+	Installed rsync
+	Committed c397df53513e
+	Pushed layer 49ce891e0eeb
+	Committed fbb00f56efdf
+	Pushed layer 656359665f56
+
+==========
+0.0.6
+==========
+Will change intertranscript to intergenic!
+
+circ_classifier.py
+    replaced intertranscript classification with intergenic
+
+circRNA_classification.R
+    automated temporary files deletion
+
+Manual
+    added -id description
+
+main.R
+    added support for long arguments
+
+circhunter.sh
+    added cleandocker support
+    added execution mode long arguments
+
+help.sh
+    added -cd description
+    added execution mode long arguments
+
+
+TO DO
+- GUI graphics
+
+
+LAST CH	    LAPTOP
+LAST GUI    LAPTOP DESKTOP
+LAST DOCKER LAPTOP DESKTOP
+LAST MANUAL LAPTOP
+PRIVILEGES  group: LAPTOP
+            su: DESKTOP
