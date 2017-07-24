@@ -1,0 +1,30 @@
+ENSG				ensembl_gene_id
+ENST				ensembl_transcript_id
+ENSE				ensembl_exon_id
+Chromosome			chromosome_name
+Exon Chr Start			exon_chrom_start
+Exon Chr End			exon_chrom_end
+Strand				strand
+Exon Rank in Transcript		rank
+Gene Start			start_position
+Gene End			end_position
+Transcript Start		transcript_start
+Transcript End			transcript_end
+
+c("ensembl_gene_id", "ensembl_transcript_id", "ensembl_exon_id", "chromosome_name", "exon_chrom_start", "exon_chrom_end", "strand", "rank", "start_position", "end_position", "transcript_start", "transcript_end")
+
+
+
+# VECCHIO, FUNZIONANTE
+# NOTE
+# USARE PER TESTARE IL FILTERING CROMOSOMI
+getBM(attributes= c("chromosome_name"),
+      filters=c("chromosome_name", "ensembl_transcript_id"),
+      values=list(chromosome_name=c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "X", "Y"), ensembl_transcript_id="ENST00000367770"),
+      mart = my_genome)
+
+# COMPLETO (1 trascritto)
+getBM(attributes=c("ensembl_gene_id", "ensembl_transcript_id", "ensembl_exon_id", "chromosome_name", "exon_chrom_start", "exon_chrom_end", "strand", "rank", "start_position", "end_position", "transcript_start", "transcript_end"),
+      filters=c("chromosome_name", "ensembl_transcript_id"),
+      values=list(chromosome_name=c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "X", "Y"), ensembl_transcript_id="ENST00000367770"),
+      mart = my_genome)

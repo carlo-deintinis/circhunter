@@ -1,0 +1,2 @@
+bash circhunter.sh -r -rs MAIN/testbacksplicing.fasta -bj MAIN/backsplicing.fasta -hc 1 2 3 4 5 6
+sudo bash circhunter.sh -r -rs MAIN/testbacksplicing.fasta -bj MAIN/backsplicing.fasta -hc 27 3 100 10 5 6

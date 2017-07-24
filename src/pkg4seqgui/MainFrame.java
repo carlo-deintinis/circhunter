@@ -41,6 +41,8 @@ import javax.swing.JTree;
 import javax.swing.KeyStroke;
 import javax.swing.text.JTextComponent;
 import javax.swing.undo.UndoManager;
+import java.io.*;
+import java.util.*;
 
 /**
  *
@@ -983,6 +985,11 @@ public class MainFrame extends javax.swing.JFrame {
         ch_execution.add(ch_execution_mode, gridBagConstraints);
 
         ch_execution_c.setText("circRNA classification");
+        ch_execution_c.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ch_execution_cActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -1596,7 +1603,55 @@ public class MainFrame extends javax.swing.JFrame {
     
     
     private void toolbar_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolbar_saveActionPerformed
-        saveAsMenuItemActionPerformed(evt);
+        //saveAsMenuItemActionPerformed(evt);
+        String executionstate = "";
+            
+            if (ch_execution_c.isSelected() && ch_execution_s.isSelected()){            
+                executionstate += "f";
+            }
+            else if (ch_execution_c.isSelected()) {
+                executionstate += "c";
+            }
+            else if (ch_execution_s.isSelected()) {
+                executionstate += "s";
+            }
+
+        JFileChooser chooser = new JFileChooser();
+        int returnVal = chooser.showSaveDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            FileOutputStream stream = null;
+            PrintStream out = null;
+            try {
+                File file = chooser.getSelectedFile();
+                stream = new FileOutputStream(file); 
+                String text = "vcircrna_list:" + vcircrna_list.getText() + "\n"
+                        + "vexon_export:" + vexon_export.getText() + "\n"
+                        + "ch_voutput_folder:" + ch_voutput_folder.getText() + "\n"
+                        + "genome_selection:" + genome_selection.getSelectedIndex() +"\n"
+                        + "execution_state:" + executionstate + "\n"
+                        + "vbacksplicing_junction:" + vbacksplicing_junction.getText() + "\n"
+                        + "vsupplied_rnaseq:" + vsupplied_rnaseq.getText() + "\n"
+                        + "hc_vkmer_size:" + hc_vkmer_size.getText() + "\n"
+                        + "hc_vthread:" + hc_vthread.getText() + "\n"
+                        + "hc_vhash_size:" + hc_vhash_size.getText() + "\n"
+                        + "hc_vcollision_list_size:" + hc_vcollision_list_size.getText() + "\n"
+                        + "hc_vnum_kmer:" + hc_vnum_kmer.getText() + "\n"
+                        + "hc_vmatches:" + hc_vmatches.getText() + "\n"
+                        + "hc_voutput_folder:" + hc_voutput_folder.getText() + "\n";
+                out = new PrintStream(stream);
+                out.print(text);                  //This will overwrite existing contents
+
+            } catch (Exception ex) {
+                //do something
+            } finally {
+                try {
+                    if(stream!=null) stream.close();
+                    if(out!=null) out.close();
+                } catch (Exception ex) {
+                    //do something
+                }
+            }
+        }
     }//GEN-LAST:event_toolbar_saveActionPerformed
 
     private void toolbar_openActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolbar_openActionPerformed
@@ -1931,7 +1986,47 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_vcircrna_listActionPerformed
 
     private void button_saveconf_chActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_saveconf_chActionPerformed
-        saveAsMenuItemActionPerformed(evt);
+//        saveAsMenuItemActionPerformed(evt); 
+            
+            String executionstate = "";
+            
+            if (ch_execution_c.isSelected() && ch_execution_s.isSelected()){            
+                executionstate += "f";
+            }
+            else if (ch_execution_c.isSelected()) {
+                executionstate += "c";
+            }
+            else if (ch_execution_s.isSelected()) {
+                executionstate += "s";
+            }
+
+        JFileChooser chooser = new JFileChooser();
+        int returnVal = chooser.showSaveDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            FileOutputStream stream = null;
+            PrintStream out = null;
+            try {
+                File file = chooser.getSelectedFile();
+                stream = new FileOutputStream(file); 
+                String text = "vcircrna_list:" + vcircrna_list.getText() + "\n"
+                        + "vexon_export:" + vexon_export.getText() + "\n"
+                        + "ch_voutput_folder:" + ch_voutput_folder.getText() + "\n"
+                        + "genome_selection:" + genome_selection.getSelectedIndex() +"\n"
+                        + "execution_state:" + executionstate + "\n";
+                out = new PrintStream(stream);
+                out.print(text);                  //This will overwrite existing contents
+
+            } catch (Exception ex) {
+                //do something
+            } finally {
+                try {
+                    if(stream!=null) stream.close();
+                    if(out!=null) out.close();
+                } catch (Exception ex) {
+                    //do something
+                }
+            }
+        }
     }//GEN-LAST:event_button_saveconf_chActionPerformed
 
     private void button_reset_chActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_reset_chActionPerformed
@@ -2353,7 +2448,38 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_button_reset_hcActionPerformed
 
     private void button_saveconf_hcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_saveconf_hcActionPerformed
-        saveAsMenuItemActionPerformed(evt);
+        //saveAsMenuItemActionPerformed(evt);
+        JFileChooser chooser = new JFileChooser();
+        int returnVal = chooser.showSaveDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            FileOutputStream stream = null;
+            PrintStream out = null;
+            try {
+                File file = chooser.getSelectedFile();
+                stream = new FileOutputStream(file); 
+                String text = "vbacksplicing_junction:" + vbacksplicing_junction.getText() + "\n"
+                        + "vsupplied_rnaseq:" + vsupplied_rnaseq.getText() + "\n"
+                        + "hc_vkmer_size:" + hc_vkmer_size.getText() + "\n"
+                        + "hc_vthread:" + hc_vthread.getText() + "\n"
+                        + "hc_vhash_size:" + hc_vhash_size.getText() + "\n"
+                        + "hc_vcollision_list_size:" + hc_vcollision_list_size.getText() + "\n"
+                        + "hc_vnum_kmer:" + hc_vnum_kmer.getText() + "\n"
+                        + "hc_vmatches:" + hc_vmatches.getText() + "\n"
+                        + "hc_voutput_folder:" + hc_voutput_folder.getText() + "\n";
+                out = new PrintStream(stream);
+                out.print(text);                  //This will overwrite existing contents
+
+            } catch (Exception ex) {
+                //do something
+            } finally {
+                try {
+                    if(stream!=null) stream.close();
+                    if(out!=null) out.close();
+                } catch (Exception ex) {
+                    //do something
+                }
+            }
+        }
     }//GEN-LAST:event_button_saveconf_hcActionPerformed
 
     private void bbacksplicing_junction_browseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bbacksplicing_junction_browseActionPerformed
@@ -2475,6 +2601,10 @@ public class MainFrame extends javax.swing.JFrame {
     private void button_outputcancel_chActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_outputcancel_chActionPerformed
         ch_voutput_folder.setText("");
     }//GEN-LAST:event_button_outputcancel_chActionPerformed
+
+    private void ch_execution_cActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ch_execution_cActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ch_execution_cActionPerformed
 
     /**
      * @param args the command line arguments
