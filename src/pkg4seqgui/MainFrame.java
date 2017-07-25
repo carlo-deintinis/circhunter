@@ -1656,7 +1656,75 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void toolbar_openActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolbar_openActionPerformed
         // TODO add your handling code here:
-         openMenuItemActionPerformed(evt);
+        // openMenuItemActionPerformed(evt);
+        JFileChooser openFile = new JFileChooser();
+        
+        if (openFile.showOpenDialog(this)==JFileChooser.APPROVE_OPTION){
+            try{
+                String line;
+                File f = openFile.getSelectedFile();
+                FileReader fw = new FileReader(f.getAbsoluteFile());
+                BufferedReader br = new BufferedReader(fw);
+                
+//                int line=0;
+//                for (String x = br.readLine(); x != null; x = br.readLine()){
+//                    //String[] saved_data = x.split(":");
+//                    switch (line){
+//                        case 0:
+//                            vcircrna_list.setText(x);
+//                    }
+//                }
+
+                while ((line = br.readLine()) != null) {
+                    // Deal with the line
+                    String[] content = line.split(":");
+                                        
+                    if (content[0].equals("vcircrna_list")){
+                        vcircrna_list.setText(content[1]);    
+                    } else if (content[0].equals("vexon_export")){
+                        vexon_export.setText(content[1]);
+                    } else if (content[0].equals("ch_voutput_folder")){
+                        ch_voutput_folder.setText(content[1]);
+                    } else if (content[0].equals("vbacksplicing_junction")){
+                        vbacksplicing_junction.setText(content[1]);
+                    } else if (content[0].equals("vsupplied_rnaseq")){
+                        vsupplied_rnaseq.setText(content[1]);
+                    } else if (content[0].equals("hc_vkmer_size")){
+                        hc_vkmer_size.setText(content[1]);
+                    } else if (content[0].equals("hc_vthread")){
+                        hc_vthread.setText(content[1]);
+                    } else if (content[0].equals("hc_vhash_size")){
+                        hc_vhash_size.setText(content[1]);
+                    } else if (content[0].equals("hc_vcollision_list_size")){
+                        hc_vcollision_list_size.setText(content[1]);
+                    } else if (content[0].equals("hc_vnum_kmer")){
+                        hc_vnum_kmer.setText(content[1]);
+                    } else if (content[0].equals("hc_vmatches")){
+                        hc_vmatches.setText(content[1]);
+                    } else if (content[0].equals("hc_voutput_folder")){
+                        hc_voutput_folder.setText(content[1]);
+                    } else if (content[0].equals("execution_state")){
+                        if (content[1].equals("c") || content[1].equals("f")){
+                            ch_execution_c.setSelected(rootPaneCheckingEnabled);
+                        }
+                        if (content[1].equals("s") || content[1].equals("f")){
+                            ch_execution_s.setSelected(rootPaneCheckingEnabled);
+                        }
+                    } else if (content[0].equals("genome_selection")){
+                        Integer gi = Integer.parseInt(content[1]);
+                        genome_selection.setSelectedIndex(gi);
+                    
+                    }
+
+                    }
+                }
+
+
+            catch (IOException e) {
+                    JOptionPane.showMessageDialog(this, "Error opening file","Error",JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        
     }//GEN-LAST:event_toolbar_openActionPerformed
 
     private void ProcListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_ProcListValueChanged
@@ -1929,11 +1997,125 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_menu_file_exitActionPerformed
 
     private void menu_file_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_file_saveActionPerformed
-        saveAsMenuItemActionPerformed(evt);   
+        String executionstate = "";
+            
+            if (ch_execution_c.isSelected() && ch_execution_s.isSelected()){            
+                executionstate += "f";
+            }
+            else if (ch_execution_c.isSelected()) {
+                executionstate += "c";
+            }
+            else if (ch_execution_s.isSelected()) {
+                executionstate += "s";
+            }
+
+        JFileChooser chooser = new JFileChooser();
+        int returnVal = chooser.showSaveDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            FileOutputStream stream = null;
+            PrintStream out = null;
+            try {
+                File file = chooser.getSelectedFile();
+                stream = new FileOutputStream(file); 
+                String text = "vcircrna_list:" + vcircrna_list.getText() + "\n"
+                        + "vexon_export:" + vexon_export.getText() + "\n"
+                        + "ch_voutput_folder:" + ch_voutput_folder.getText() + "\n"
+                        + "genome_selection:" + genome_selection.getSelectedIndex() +"\n"
+                        + "execution_state:" + executionstate + "\n"
+                        + "vbacksplicing_junction:" + vbacksplicing_junction.getText() + "\n"
+                        + "vsupplied_rnaseq:" + vsupplied_rnaseq.getText() + "\n"
+                        + "hc_vkmer_size:" + hc_vkmer_size.getText() + "\n"
+                        + "hc_vthread:" + hc_vthread.getText() + "\n"
+                        + "hc_vhash_size:" + hc_vhash_size.getText() + "\n"
+                        + "hc_vcollision_list_size:" + hc_vcollision_list_size.getText() + "\n"
+                        + "hc_vnum_kmer:" + hc_vnum_kmer.getText() + "\n"
+                        + "hc_vmatches:" + hc_vmatches.getText() + "\n"
+                        + "hc_voutput_folder:" + hc_voutput_folder.getText() + "\n";
+                out = new PrintStream(stream);
+                out.print(text);                  //This will overwrite existing contents
+
+            } catch (Exception ex) {
+                //do something
+            } finally {
+                try {
+                    if(stream!=null) stream.close();
+                    if(out!=null) out.close();
+                } catch (Exception ex) {
+                    //do something
+                }
+            }
+        }   
     }//GEN-LAST:event_menu_file_saveActionPerformed
 
     private void menu_file_openActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_file_openActionPerformed
-     openMenuItemActionPerformed(evt);
+        JFileChooser openFile = new JFileChooser();
+        
+        if (openFile.showOpenDialog(this)==JFileChooser.APPROVE_OPTION){
+            try{
+                String line;
+                File f = openFile.getSelectedFile();
+                FileReader fw = new FileReader(f.getAbsoluteFile());
+                BufferedReader br = new BufferedReader(fw);
+                
+//                int line=0;
+//                for (String x = br.readLine(); x != null; x = br.readLine()){
+//                    //String[] saved_data = x.split(":");
+//                    switch (line){
+//                        case 0:
+//                            vcircrna_list.setText(x);
+//                    }
+//                }
+
+                while ((line = br.readLine()) != null) {
+                    // Deal with the line
+                    String[] content = line.split(":");
+                                        
+                    if (content[0].equals("vcircrna_list")){
+                        vcircrna_list.setText(content[1]);    
+                    } else if (content[0].equals("vexon_export")){
+                        vexon_export.setText(content[1]);
+                    } else if (content[0].equals("ch_voutput_folder")){
+                        ch_voutput_folder.setText(content[1]);
+                    } else if (content[0].equals("vbacksplicing_junction")){
+                        vbacksplicing_junction.setText(content[1]);
+                    } else if (content[0].equals("vsupplied_rnaseq")){
+                        vsupplied_rnaseq.setText(content[1]);
+                    } else if (content[0].equals("hc_vkmer_size")){
+                        hc_vkmer_size.setText(content[1]);
+                    } else if (content[0].equals("hc_vthread")){
+                        hc_vthread.setText(content[1]);
+                    } else if (content[0].equals("hc_vhash_size")){
+                        hc_vhash_size.setText(content[1]);
+                    } else if (content[0].equals("hc_vcollision_list_size")){
+                        hc_vcollision_list_size.setText(content[1]);
+                    } else if (content[0].equals("hc_vnum_kmer")){
+                        hc_vnum_kmer.setText(content[1]);
+                    } else if (content[0].equals("hc_vmatches")){
+                        hc_vmatches.setText(content[1]);
+                    } else if (content[0].equals("hc_voutput_folder")){
+                        hc_voutput_folder.setText(content[1]);
+                    } else if (content[0].equals("execution_state")){
+                        if (content[1].equals("c") || content[1].equals("f")){
+                            ch_execution_c.setSelected(rootPaneCheckingEnabled);
+                        }
+                        if (content[1].equals("s") || content[1].equals("f")){
+                            ch_execution_s.setSelected(rootPaneCheckingEnabled);
+                        }
+                    } else if (content[0].equals("genome_selection")){
+                        Integer gi = Integer.parseInt(content[1]);
+                        genome_selection.setSelectedIndex(gi);
+                    
+                    }
+
+                    }
+                }
+
+
+            catch (IOException e) {
+                    JOptionPane.showMessageDialog(this, "Error opening file","Error",JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
     }//GEN-LAST:event_menu_file_openActionPerformed
 
     private void genome_selectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genome_selectionActionPerformed
