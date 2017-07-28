@@ -42,7 +42,7 @@ import javax.swing.KeyStroke;
 import javax.swing.text.JTextComponent;
 import javax.swing.undo.UndoManager;
 import java.io.*;
-import java.util.*;
+import java.util.prefs.Preferences;
 
 /**
  *
@@ -86,9 +86,48 @@ public class MainFrame extends javax.swing.JFrame {
         //ConfigurationPanel
         contextMenu.add(hc_vkmer_size);
         
+        
+//loading main frame preference     
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        main_panel.setDividerLocation(screenSize.height*5/10);
-        setSize(screenSize.width*8/10,screenSize.height*8/10);
+          
+        String  WindowWidth= getPreferences().get("CircHunterGUI_WindowWidth", null);
+        String  WindowHeight= getPreferences().get("CircHunterGUI_WindowHeight", null); 
+        if ((WindowWidth!=null)&&(WindowHeight!=null)){
+          setSize(Integer.valueOf(WindowWidth),Integer.valueOf(WindowHeight));  
+        }
+        else{
+            setSize(screenSize.width*95/100,screenSize.height*95/100);
+        }
+//loading window preference  
+//loading spline pannel preferences
+        String HorSplPan = getPreferences().get("CircHunterGUI_HorizontalSplitPanel", null);
+        if (HorSplPan!=null){
+         HorizontalSplitPanel.setDividerLocation(Integer.valueOf(HorSplPan));   
+        }
+        else{
+         HorizontalSplitPanel.setDividerLocation(screenSize.height*3/10);   
+        }
+  
+        String VerSplPan = getPreferences().get("CircHunterGUI_VerticalSplitPanel", null);
+        if (VerSplPan!=null){
+            VerticalSplitPanel.setDividerLocation(Integer.valueOf(VerSplPan));
+        }
+        else {
+        VerticalSplitPanel.setDividerLocation(screenSize.height*7/10);
+        }
+//loading spline pannel preferences
+
+//loading output frame  preferences
+        int OutputframeWidth= Integer.valueOf(getPreferences().get("CircHunterGUI_WindowOutputWidth", "0"));
+        int OutputframeHeight= Integer.valueOf(getPreferences().get("CircHunterGUI_WindowOutputHeight", "0")); 
+        if ((OutputframeWidth==0)||(OutputframeHeight==0)){
+              OutputframeWidth=screenSize.width*4/100;
+              OutputframeHeight=screenSize.height*5/100;
+        }
+
+        OutputFrame.setSize(OutputframeWidth,OutputframeHeight);
+//loading output frame  preferences
+
         setLocationRelativeTo(null);
         invalidate();
         doLayout();
@@ -141,8 +180,8 @@ public class MainFrame extends javax.swing.JFrame {
         toolbar_save = new javax.swing.JButton();
         toolbar_settings = new javax.swing.JToggleButton();
         toolbar_rmdocker = new javax.swing.JButton();
-        main_panel = new javax.swing.JSplitPane();
-        jSplitPane1 = new javax.swing.JSplitPane();
+        VerticalSplitPanel = new javax.swing.JSplitPane();
+        HorizontalSplitPanel = new javax.swing.JSplitPane();
         LeftPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         AnalysisTree = new javax.swing.JTree();
@@ -150,6 +189,36 @@ public class MainFrame extends javax.swing.JFrame {
         logo_panel = new javax.swing.JScrollPane();
         EmptyPanel = new javax.swing.JPanel();
         gui_logo = new javax.swing.JLabel();
+        ch_analysis_panel = new javax.swing.JScrollPane();
+        command_panel_ch = new javax.swing.JPanel();
+        button_close_ch = new javax.swing.JButton();
+        button_execute_ch = new javax.swing.JButton();
+        button_reset_ch = new javax.swing.JButton();
+        button_saveconf_ch = new javax.swing.JButton();
+        ch_execution = new javax.swing.JPanel();
+        ch_execution_mode = new javax.swing.JLabel();
+        ch_execution_c = new javax.swing.JCheckBox();
+        ch_execution_s = new javax.swing.JCheckBox();
+        jLabel2 = new javax.swing.JLabel();
+        ch_analysis_panel_files = new javax.swing.JPanel();
+        circrna_list = new javax.swing.JLabel();
+        vcircrna_list = new javax.swing.JTextField();
+        bcircrna_list_browse = new javax.swing.JToggleButton();
+        bcircrna_list_cancel = new javax.swing.JToggleButton();
+        exon_export = new javax.swing.JLabel();
+        vexon_export = new javax.swing.JTextField();
+        bexon_export_browse = new javax.swing.JToggleButton();
+        bexon_export_cancel = new javax.swing.JToggleButton();
+        biomart_note = new javax.swing.JLabel();
+        ch_analysis_panel_genome = new javax.swing.JPanel();
+        genome = new javax.swing.JLabel();
+        genome_selection = new javax.swing.JComboBox<>();
+        genome_note = new javax.swing.JLabel();
+        ch_output_folder = new javax.swing.JPanel();
+        output_folder_ch = new javax.swing.JLabel();
+        ch_voutput_folder = new javax.swing.JTextField();
+        button_outputbrowse_ch = new javax.swing.JButton();
+        button_outputcancel_ch = new javax.swing.JButton();
         hc_analysis_panel = new javax.swing.JScrollPane();
         command_panel_hc = new javax.swing.JPanel();
         button_close_hc = new javax.swing.JButton();
@@ -178,40 +247,12 @@ public class MainFrame extends javax.swing.JFrame {
         hc_vnum_kmer = new javax.swing.JTextField();
         hc_matches = new javax.swing.JLabel();
         hc_vmatches = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         hc_output_folder = new javax.swing.JPanel();
         output_folder = new javax.swing.JLabel();
         hc_voutput_folder = new javax.swing.JTextField();
         button_outputbrowse_hc = new javax.swing.JButton();
         button_outputcancel_hc = new javax.swing.JButton();
-        ch_analysis_panel = new javax.swing.JScrollPane();
-        command_panel_ch = new javax.swing.JPanel();
-        button_close_ch = new javax.swing.JButton();
-        button_execute_ch = new javax.swing.JButton();
-        button_reset_ch = new javax.swing.JButton();
-        button_saveconf_ch = new javax.swing.JButton();
-        ch_execution = new javax.swing.JPanel();
-        ch_execution_mode = new javax.swing.JLabel();
-        ch_execution_c = new javax.swing.JCheckBox();
-        ch_execution_s = new javax.swing.JCheckBox();
-        ch_analysis_panel_files = new javax.swing.JPanel();
-        circrna_list = new javax.swing.JLabel();
-        vcircrna_list = new javax.swing.JTextField();
-        bcircrna_list_browse = new javax.swing.JToggleButton();
-        bcircrna_list_cancel = new javax.swing.JToggleButton();
-        exon_export = new javax.swing.JLabel();
-        vexon_export = new javax.swing.JTextField();
-        bexon_export_browse = new javax.swing.JToggleButton();
-        bexon_export_cancel = new javax.swing.JToggleButton();
-        biomart_note = new javax.swing.JLabel();
-        ch_analysis_panel_genome = new javax.swing.JPanel();
-        genome = new javax.swing.JLabel();
-        genome_selection = new javax.swing.JComboBox<>();
-        genome_note = new javax.swing.JLabel();
-        ch_output_folder = new javax.swing.JPanel();
-        output_folder_ch = new javax.swing.JLabel();
-        ch_voutput_folder = new javax.swing.JTextField();
-        button_outputbrowse_ch = new javax.swing.JButton();
-        button_outputcancel_ch = new javax.swing.JButton();
         BottomPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         ProcStatusPanel = new javax.swing.JPanel();
@@ -237,6 +278,7 @@ public class MainFrame extends javax.swing.JFrame {
         OutputText.setRows(5);
         jScrollPane3.setViewportView(OutputText);
 
+        CloseOutput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/33b.png"))); // NOI18N
         CloseOutput.setText("Close");
         CloseOutput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -244,6 +286,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        ReloadOutput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/reset.png"))); // NOI18N
         ReloadOutput.setText("Reload");
         ReloadOutput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -251,6 +294,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        RemoveOutput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/remove.png"))); // NOI18N
         RemoveOutput.setText("RemoveEntry");
         RemoveOutput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -266,7 +310,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(OutputFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(OutputFrameLayout.createSequentialGroup()
-                        .addGap(0, 632, Short.MAX_VALUE)
+                        .addGap(0, 555, Short.MAX_VALUE)
                         .addComponent(ReloadOutput)
                         .addGap(18, 18, 18)
                         .addComponent(RemoveOutput)
@@ -285,7 +329,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(CloseOutput)
                     .addComponent(ReloadOutput)
                     .addComponent(RemoveOutput))
-                .addGap(0, 22, Short.MAX_VALUE))
+                .addGap(0, 17, Short.MAX_VALUE))
         );
 
         ConfigurationFrame.setTitle("Configuration");
@@ -392,6 +436,14 @@ public class MainFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CircHunterGUI");
         setMinimumSize(new java.awt.Dimension(500, 400));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         toolbar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         toolbar.setRollover(true);
@@ -446,13 +498,13 @@ public class MainFrame extends javax.swing.JFrame {
 
         getContentPane().add(toolbar, java.awt.BorderLayout.NORTH);
 
-        main_panel.setDividerLocation(400);
-        main_panel.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-        main_panel.setResizeWeight(0.8);
+        VerticalSplitPanel.setDividerLocation(400);
+        VerticalSplitPanel.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        VerticalSplitPanel.setResizeWeight(0.8);
 
-        jSplitPane1.setDividerLocation(200);
-        jSplitPane1.setResizeWeight(0.2);
-        jSplitPane1.setPreferredSize(new java.awt.Dimension(600, 600));
+        HorizontalSplitPanel.setDividerLocation(200);
+        HorizontalSplitPanel.setResizeWeight(0.2);
+        HorizontalSplitPanel.setPreferredSize(new java.awt.Dimension(600, 600));
 
         LeftPanel.setBackground(new java.awt.Color(255, 255, 255));
         LeftPanel.setPreferredSize(new java.awt.Dimension(100, 600));
@@ -474,10 +526,10 @@ public class MainFrame extends javax.swing.JFrame {
         AnalysisTree.setMinimumSize(new java.awt.Dimension(128, 64));
         AnalysisTree.setPreferredSize(new java.awt.Dimension(128, 54));
         AnalysisTree.addTreeExpansionListener(new javax.swing.event.TreeExpansionListener() {
+            public void treeCollapsed(javax.swing.event.TreeExpansionEvent evt) {
+            }
             public void treeExpanded(javax.swing.event.TreeExpansionEvent evt) {
                 AnalysisTreeTreeExpanded(evt);
-            }
-            public void treeCollapsed(javax.swing.event.TreeExpansionEvent evt) {
             }
         });
         AnalysisTree.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
@@ -496,7 +548,7 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints.weighty = 1.0;
         LeftPanel.add(jScrollPane1, gridBagConstraints);
 
-        jSplitPane1.setLeftComponent(LeftPanel);
+        HorizontalSplitPanel.setLeftComponent(LeftPanel);
 
         analysis_panel.setBackground(new java.awt.Color(255, 255, 255));
         analysis_panel.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -523,399 +575,10 @@ public class MainFrame extends javax.swing.JFrame {
 
         analysis_panel.add(logo_panel, "Empty");
 
-        command_panel_hc.setToolTipText("");
-        command_panel_hc.setLayout(new java.awt.GridBagLayout());
-
-        button_close_hc.setText("Close");
-        button_close_hc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_close_hcActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
-        gridBagConstraints.weighty = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        command_panel_hc.add(button_close_hc, gridBagConstraints);
-
-        button_execute_hc.setText("Execute");
-        button_execute_hc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_execute_hcActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        command_panel_hc.add(button_execute_hc, gridBagConstraints);
-
-        button_reset_hc.setText("Reset");
-        button_reset_hc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_reset_hcActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        command_panel_hc.add(button_reset_hc, gridBagConstraints);
-
-        button_saveconf_hc.setText("Save conf.");
-        button_saveconf_hc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_saveconf_hcActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        command_panel_hc.add(button_saveconf_hc, gridBagConstraints);
-
-        hc_analysis_panel_files.setBackground(new java.awt.Color(230, 230, 235));
-        hc_analysis_panel_files.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        hc_analysis_panel_files.setLayout(new java.awt.GridBagLayout());
-
-        backsplicing_junction.setText("Backsplicing junction file:");
-        backsplicing_junction.setToolTipText("");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        hc_analysis_panel_files.add(backsplicing_junction, gridBagConstraints);
-
-        vbacksplicing_junction.setEditable(false);
-        vbacksplicing_junction.setToolTipText("The folder containing the indexed genome.");
-        vbacksplicing_junction.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                vbacksplicing_junctionActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        hc_analysis_panel_files.add(vbacksplicing_junction, gridBagConstraints);
-
-        bbacksplicing_junction_browse.setText("Browse");
-        bbacksplicing_junction_browse.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bbacksplicing_junction_browseActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.weightx = 0.2;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        hc_analysis_panel_files.add(bbacksplicing_junction_browse, gridBagConstraints);
-
-        bbacksplicing_junction_cancel.setText("Cancel");
-        bbacksplicing_junction_cancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bbacksplicing_junction_cancelActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        hc_analysis_panel_files.add(bbacksplicing_junction_cancel, gridBagConstraints);
-
-        supplied_rnaseq.setText("Supplied RNA-Seq file:");
-        supplied_rnaseq.setToolTipText("");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        hc_analysis_panel_files.add(supplied_rnaseq, gridBagConstraints);
-
-        vsupplied_rnaseq.setEditable(false);
-        vsupplied_rnaseq.setToolTipText("The folder containing the indexed genome.");
-        vsupplied_rnaseq.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                vsupplied_rnaseqActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        hc_analysis_panel_files.add(vsupplied_rnaseq, gridBagConstraints);
-
-        bsupplied_rnaseq_browse.setText("Browse");
-        bsupplied_rnaseq_browse.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bsupplied_rnaseq_browseActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 11;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.weightx = 0.2;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        hc_analysis_panel_files.add(bsupplied_rnaseq_browse, gridBagConstraints);
-
-        bsupplied_rnaseq_cancel.setText("Cancel");
-        bsupplied_rnaseq_cancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bsupplied_rnaseq_cancelActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 11;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        hc_analysis_panel_files.add(bsupplied_rnaseq_cancel, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        command_panel_hc.add(hc_analysis_panel_files, gridBagConstraints);
-
-        hc.setBackground(new java.awt.Color(230, 230, 235));
-        hc.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        hc.setLayout(new java.awt.GridBagLayout());
-
-        hc_kmer_size.setText("k-mer size:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        hc.add(hc_kmer_size, gridBagConstraints);
-
-        hc_vkmer_size.setToolTipText("input k-mer length");
-        hc_vkmer_size.setMinimumSize(new java.awt.Dimension(100, 28));
-        hc_vkmer_size.setPreferredSize(new java.awt.Dimension(100, 28));
-        hc_vkmer_size.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hc_vkmer_sizeActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        hc.add(hc_vkmer_size, gridBagConstraints);
-        hc_vkmer_size.getAccessibleContext().setAccessibleDescription("");
-
-        hc_thread.setText("thread number:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        hc.add(hc_thread, gridBagConstraints);
-
-        hc_vthread.setToolTipText("input k-mer length");
-        hc_vthread.setPreferredSize(new java.awt.Dimension(100, 28));
-        hc_vthread.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hc_vthreadActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        hc.add(hc_vthread, gridBagConstraints);
-
-        hc_hash_size.setText("hash size:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        hc.add(hc_hash_size, gridBagConstraints);
-
-        hc_vhash_size.setPreferredSize(new java.awt.Dimension(100, 28));
-        hc_vhash_size.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hc_vhash_sizeActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        hc.add(hc_vhash_size, gridBagConstraints);
-
-        hc_collision_list_size.setText("collision list size:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        hc.add(hc_collision_list_size, gridBagConstraints);
-
-        hc_vcollision_list_size.setPreferredSize(new java.awt.Dimension(100, 28));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        hc.add(hc_vcollision_list_size, gridBagConstraints);
-
-        hc_num_kmer.setText("k-mer number:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        hc.add(hc_num_kmer, gridBagConstraints);
-
-        hc_vnum_kmer.setPreferredSize(new java.awt.Dimension(100, 28));
-        hc_vnum_kmer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hc_vnum_kmerActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        hc.add(hc_vnum_kmer, gridBagConstraints);
-
-        hc_matches.setText("matches:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        hc.add(hc_matches, gridBagConstraints);
-
-        hc_vmatches.setPreferredSize(new java.awt.Dimension(100, 28));
-        hc_vmatches.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hc_vmatchesActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        hc.add(hc_vmatches, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        command_panel_hc.add(hc, gridBagConstraints);
-
-        hc_output_folder.setBackground(new java.awt.Color(230, 230, 235));
-        hc_output_folder.setLayout(new java.awt.GridBagLayout());
-
-        output_folder.setText("Output folder:");
-        output_folder.setToolTipText("");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        hc_output_folder.add(output_folder, gridBagConstraints);
-
-        hc_voutput_folder.setEditable(false);
-        hc_voutput_folder.setToolTipText("The folder containing the indexed genome.");
-        hc_voutput_folder.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hc_voutput_folderActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        hc_output_folder.add(hc_voutput_folder, gridBagConstraints);
-
-        button_outputbrowse_hc.setText("Browse");
-        button_outputbrowse_hc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_outputbrowse_hcActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.weightx = 0.2;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        hc_output_folder.add(button_outputbrowse_hc, gridBagConstraints);
-
-        button_outputcancel_hc.setText("Cancel");
-        button_outputcancel_hc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_outputcancel_hcActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        hc_output_folder.add(button_outputcancel_hc, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        command_panel_hc.add(hc_output_folder, gridBagConstraints);
-
-        hc_analysis_panel.setViewportView(command_panel_hc);
-
-        analysis_panel.add(hc_analysis_panel, "hc_analysis_panel");
-
         command_panel_ch.setToolTipText("");
         command_panel_ch.setLayout(new java.awt.GridBagLayout());
 
+        button_close_ch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/close.png"))); // NOI18N
         button_close_ch.setText("Close");
         button_close_ch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -930,6 +593,7 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         command_panel_ch.add(button_close_ch, gridBagConstraints);
 
+        button_execute_ch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/exec.png"))); // NOI18N
         button_execute_ch.setText("Execute");
         button_execute_ch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -944,6 +608,7 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         command_panel_ch.add(button_execute_ch, gridBagConstraints);
 
+        button_reset_ch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/reset.png"))); // NOI18N
         button_reset_ch.setText("Reset");
         button_reset_ch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -957,6 +622,7 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         command_panel_ch.add(button_reset_ch, gridBagConstraints);
 
+        button_saveconf_ch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/86b.png"))); // NOI18N
         button_saveconf_ch.setText("Save conf.");
         button_saveconf_ch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -981,9 +647,10 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 52);
         ch_execution.add(ch_execution_mode, gridBagConstraints);
 
+        ch_execution_c.setBackground(new java.awt.Color(230, 230, 235));
         ch_execution_c.setText("circRNA classification");
         ch_execution_c.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -998,6 +665,7 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
         ch_execution.add(ch_execution_c, gridBagConstraints);
 
+        ch_execution_s.setBackground(new java.awt.Color(230, 230, 235));
         ch_execution_s.setText("Backsplicing junction sequences");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -1006,6 +674,14 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.2;
         gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
         ch_execution.add(ch_execution_s, gridBagConstraints);
+
+        jLabel2.setToolTipText("");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        ch_execution.add(jLabel2, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -1026,7 +702,7 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 36);
         ch_analysis_panel_files.add(circrna_list, gridBagConstraints);
 
         vcircrna_list.setEditable(false);
@@ -1047,6 +723,7 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         ch_analysis_panel_files.add(vcircrna_list, gridBagConstraints);
 
+        bcircrna_list_browse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/fileb.png"))); // NOI18N
         bcircrna_list_browse.setText("Browse");
         bcircrna_list_browse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1061,6 +738,7 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         ch_analysis_panel_files.add(bcircrna_list_browse, gridBagConstraints);
 
+        bcircrna_list_cancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/33b.png"))); // NOI18N
         bcircrna_list_cancel.setText("Cancel");
         bcircrna_list_cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1101,6 +779,7 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         ch_analysis_panel_files.add(vexon_export, gridBagConstraints);
 
+        bexon_export_browse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/fileb.png"))); // NOI18N
         bexon_export_browse.setText("Browse");
         bexon_export_browse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1115,6 +794,7 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         ch_analysis_panel_files.add(bexon_export_browse, gridBagConstraints);
 
+        bexon_export_cancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/33b.png"))); // NOI18N
         bexon_export_cancel.setText("Cancel");
         bexon_export_cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1155,7 +835,7 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE;
-        gridBagConstraints.insets = new java.awt.Insets(10, 12, 10, 112);
+        gridBagConstraints.insets = new java.awt.Insets(10, 12, 10, 10);
         ch_analysis_panel_genome.add(genome, gridBagConstraints);
 
         genome_selection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "hg18 (Human Assembly NCBI36/hg18)", "hg19 (Human Assembly GRCh37/hg19)", "hg38 (Human Assembly GRCh38/hg38)" }));
@@ -1203,7 +883,7 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 46);
         ch_output_folder.add(output_folder_ch, gridBagConstraints);
 
         ch_voutput_folder.setEditable(false);
@@ -1223,6 +903,7 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         ch_output_folder.add(ch_voutput_folder, gridBagConstraints);
 
+        button_outputbrowse_ch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/52b.png"))); // NOI18N
         button_outputbrowse_ch.setText("Browse");
         button_outputbrowse_ch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1237,6 +918,7 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         ch_output_folder.add(button_outputbrowse_ch, gridBagConstraints);
 
+        button_outputcancel_ch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/33b.png"))); // NOI18N
         button_outputcancel_ch.setText("Cancel");
         button_outputcancel_ch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1262,9 +944,422 @@ public class MainFrame extends javax.swing.JFrame {
 
         analysis_panel.add(ch_analysis_panel, "ch_analysis_panel");
 
-        jSplitPane1.setRightComponent(analysis_panel);
+        command_panel_hc.setToolTipText("");
+        command_panel_hc.setLayout(new java.awt.GridBagLayout());
 
-        main_panel.setTopComponent(jSplitPane1);
+        button_close_hc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/close.png"))); // NOI18N
+        button_close_hc.setText("Close");
+        button_close_hc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_close_hcActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        command_panel_hc.add(button_close_hc, gridBagConstraints);
+
+        button_execute_hc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/exec.png"))); // NOI18N
+        button_execute_hc.setText("Execute");
+        button_execute_hc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_execute_hcActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        command_panel_hc.add(button_execute_hc, gridBagConstraints);
+
+        button_reset_hc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/reset.png"))); // NOI18N
+        button_reset_hc.setText("Reset");
+        button_reset_hc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_reset_hcActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        command_panel_hc.add(button_reset_hc, gridBagConstraints);
+
+        button_saveconf_hc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/86b.png"))); // NOI18N
+        button_saveconf_hc.setText("Save conf.");
+        button_saveconf_hc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_saveconf_hcActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        command_panel_hc.add(button_saveconf_hc, gridBagConstraints);
+
+        hc_analysis_panel_files.setBackground(new java.awt.Color(230, 230, 235));
+        hc_analysis_panel_files.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        hc_analysis_panel_files.setLayout(new java.awt.GridBagLayout());
+
+        backsplicing_junction.setText("Backsplicing junction file:");
+        backsplicing_junction.setToolTipText("");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        hc_analysis_panel_files.add(backsplicing_junction, gridBagConstraints);
+
+        vbacksplicing_junction.setEditable(false);
+        vbacksplicing_junction.setToolTipText("The folder containing the indexed genome.");
+        vbacksplicing_junction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vbacksplicing_junctionActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        hc_analysis_panel_files.add(vbacksplicing_junction, gridBagConstraints);
+
+        bbacksplicing_junction_browse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/fileb.png"))); // NOI18N
+        bbacksplicing_junction_browse.setText("Browse");
+        bbacksplicing_junction_browse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bbacksplicing_junction_browseActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        hc_analysis_panel_files.add(bbacksplicing_junction_browse, gridBagConstraints);
+
+        bbacksplicing_junction_cancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/33b.png"))); // NOI18N
+        bbacksplicing_junction_cancel.setText("Cancel");
+        bbacksplicing_junction_cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bbacksplicing_junction_cancelActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        hc_analysis_panel_files.add(bbacksplicing_junction_cancel, gridBagConstraints);
+
+        supplied_rnaseq.setText("Supplied RNA-Seq file:");
+        supplied_rnaseq.setToolTipText("");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        hc_analysis_panel_files.add(supplied_rnaseq, gridBagConstraints);
+
+        vsupplied_rnaseq.setEditable(false);
+        vsupplied_rnaseq.setToolTipText("The folder containing the indexed genome.");
+        vsupplied_rnaseq.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vsupplied_rnaseqActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        hc_analysis_panel_files.add(vsupplied_rnaseq, gridBagConstraints);
+
+        bsupplied_rnaseq_browse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/fileb.png"))); // NOI18N
+        bsupplied_rnaseq_browse.setText("Browse");
+        bsupplied_rnaseq_browse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bsupplied_rnaseq_browseActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 11;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        hc_analysis_panel_files.add(bsupplied_rnaseq_browse, gridBagConstraints);
+
+        bsupplied_rnaseq_cancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/33b.png"))); // NOI18N
+        bsupplied_rnaseq_cancel.setText("Cancel");
+        bsupplied_rnaseq_cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bsupplied_rnaseq_cancelActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 11;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        hc_analysis_panel_files.add(bsupplied_rnaseq_cancel, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        command_panel_hc.add(hc_analysis_panel_files, gridBagConstraints);
+
+        hc.setBackground(new java.awt.Color(230, 230, 235));
+        hc.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        hc.setLayout(new java.awt.GridBagLayout());
+
+        hc_kmer_size.setText("k-mer size:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        hc.add(hc_kmer_size, gridBagConstraints);
+
+        hc_vkmer_size.setToolTipText("input k-mer length");
+        hc_vkmer_size.setMinimumSize(new java.awt.Dimension(100, 28));
+        hc_vkmer_size.setPreferredSize(new java.awt.Dimension(100, 28));
+        hc_vkmer_size.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hc_vkmer_sizeActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 78, 10, 10);
+        hc.add(hc_vkmer_size, gridBagConstraints);
+        hc_vkmer_size.getAccessibleContext().setAccessibleDescription("");
+
+        hc_thread.setText("thread number:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        hc.add(hc_thread, gridBagConstraints);
+
+        hc_vthread.setToolTipText("input k-mer length");
+        hc_vthread.setPreferredSize(new java.awt.Dimension(100, 28));
+        hc_vthread.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hc_vthreadActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 78, 10, 10);
+        hc.add(hc_vthread, gridBagConstraints);
+
+        hc_hash_size.setText("hash size:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        hc.add(hc_hash_size, gridBagConstraints);
+
+        hc_vhash_size.setPreferredSize(new java.awt.Dimension(100, 28));
+        hc_vhash_size.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hc_vhash_sizeActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 78, 10, 10);
+        hc.add(hc_vhash_size, gridBagConstraints);
+
+        hc_collision_list_size.setText("collision list size:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        hc.add(hc_collision_list_size, gridBagConstraints);
+
+        hc_vcollision_list_size.setPreferredSize(new java.awt.Dimension(100, 28));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        hc.add(hc_vcollision_list_size, gridBagConstraints);
+
+        hc_num_kmer.setText("k-mer number:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        hc.add(hc_num_kmer, gridBagConstraints);
+
+        hc_vnum_kmer.setPreferredSize(new java.awt.Dimension(100, 28));
+        hc_vnum_kmer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hc_vnum_kmerActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        hc.add(hc_vnum_kmer, gridBagConstraints);
+
+        hc_matches.setText("matches:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        hc.add(hc_matches, gridBagConstraints);
+
+        hc_vmatches.setPreferredSize(new java.awt.Dimension(100, 28));
+        hc_vmatches.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hc_vmatchesActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        hc.add(hc_vmatches, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 0.5;
+        hc.add(jLabel1, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        command_panel_hc.add(hc, gridBagConstraints);
+
+        hc_output_folder.setBackground(new java.awt.Color(230, 230, 235));
+        hc_output_folder.setLayout(new java.awt.GridBagLayout());
+
+        output_folder.setText("Output folder:");
+        output_folder.setToolTipText("");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        hc_output_folder.add(output_folder, gridBagConstraints);
+
+        hc_voutput_folder.setEditable(false);
+        hc_voutput_folder.setToolTipText("The folder containing the indexed genome.");
+        hc_voutput_folder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hc_voutput_folderActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(10, 91, 10, 10);
+        hc_output_folder.add(hc_voutput_folder, gridBagConstraints);
+
+        button_outputbrowse_hc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/52b.png"))); // NOI18N
+        button_outputbrowse_hc.setText("Browse");
+        button_outputbrowse_hc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_outputbrowse_hcActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        hc_output_folder.add(button_outputbrowse_hc, gridBagConstraints);
+
+        button_outputcancel_hc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/33b.png"))); // NOI18N
+        button_outputcancel_hc.setText("Cancel");
+        button_outputcancel_hc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_outputcancel_hcActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        hc_output_folder.add(button_outputcancel_hc, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        command_panel_hc.add(hc_output_folder, gridBagConstraints);
+
+        hc_analysis_panel.setViewportView(command_panel_hc);
+
+        analysis_panel.add(hc_analysis_panel, "hc_analysis_panel");
+
+        HorizontalSplitPanel.setRightComponent(analysis_panel);
+
+        VerticalSplitPanel.setTopComponent(HorizontalSplitPanel);
 
         BottomPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         BottomPanel.setLayout(new java.awt.GridBagLayout());
@@ -1303,9 +1398,9 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints.weighty = 1.0;
         BottomPanel.add(jScrollPane2, gridBagConstraints);
 
-        main_panel.setBottomComponent(BottomPanel);
+        VerticalSplitPanel.setBottomComponent(BottomPanel);
 
-        getContentPane().add(main_panel, java.awt.BorderLayout.CENTER);
+        getContentPane().add(VerticalSplitPanel, java.awt.BorderLayout.CENTER);
 
         menu_bar.setBorder(javax.swing.BorderFactory.createCompoundBorder());
 
@@ -1808,7 +1903,9 @@ public class MainFrame extends javax.swing.JFrame {
     //GL.setListProcStatuSelection(-1);  
     ProcList.clearSelection();
     GL.setAvoidProcListValueChanged(0);
-    //System.out.println("@@@@@@@@@@@@Close: \n");
+    //System.out.println("@@@@@@@@@@@@Close: \n");xx
+    getPreferences().put("CircHunterGUI_WindowOutputWidth", Integer.toString(OutputFrame.getWidth()));
+    getPreferences().put("CircHunterGUI_WindowOutputHeight", Integer.toString(OutputFrame.getHeight())); 
     }//GEN-LAST:event_CloseOutputActionPerformed
 
     private void ProcListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProcListMouseClicked
@@ -2788,6 +2885,22 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ch_execution_cActionPerformed
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+       
+//Saving Window size preference        
+       getPreferences().put("CircHunterGUI_WindowWidth", Integer.toString(getSize().width));
+       getPreferences().put("CircHunterGUI_WindowHeight",Integer.toString(getSize().height));
+//Saving Window size preference
+//Saving split panel preferences
+       getPreferences().put("CircHunterGUI_HorizontalSplitPanel", Integer.toString(HorizontalSplitPanel.getDividerLocation()));
+       getPreferences().put("CircHunterGUI_VerticalSplitPanel", Integer.toString(VerticalSplitPanel.getDividerLocation()));
+ //Saving split panel preferences      
+    }//GEN-LAST:event_formWindowClosing
+
     /**
      * @param args the command line arguments
      */
@@ -2842,6 +2955,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton ConfCancell;
     private javax.swing.JFrame ConfigurationFrame;
     private javax.swing.JPanel EmptyPanel;
+    private javax.swing.JSplitPane HorizontalSplitPanel;
     private javax.swing.ButtonGroup IExecution;
     private javax.swing.JPanel LeftPanel;
     private javax.swing.JFrame OutputFrame;
@@ -2854,6 +2968,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.ButtonGroup Strand;
     private javax.swing.JTextField ThreadTextField;
     private javax.swing.ButtonGroup Truncating;
+    private javax.swing.JSplitPane VerticalSplitPanel;
     private javax.swing.JPanel analysis_panel;
     private javax.swing.JLabel backsplicing_junction;
     private javax.swing.JToggleButton bbacksplicing_junction_browse;
@@ -2913,8 +3028,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField hc_vthread;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JMenu jMenu1;
@@ -2923,12 +3040,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JScrollPane logo_panel;
     private javax.swing.ButtonGroup mDownload;
     private javax.swing.ButtonGroup mExecution;
     private javax.swing.ButtonGroup mTrimmed;
-    private javax.swing.JSplitPane main_panel;
     private javax.swing.JMenuBar menu_bar;
     private javax.swing.JMenu menu_edit;
     private javax.swing.JMenuItem menu_edit_configure;
@@ -3483,6 +3598,13 @@ public class DefaultContextMenu extends JPopupMenu
 
 DefaultContextMenu contextMenu = new DefaultContextMenu();
 
-
+  static String prefRootNode = "/org/unito/CircHunterGUI";
+   // Preferences
+    public static Preferences getPreferences() {
+        assert prefRootNode != null;
+        Preferences root = Preferences.userRoot();
+        return root.node(prefRootNode);
+    } 
 
 }
+
