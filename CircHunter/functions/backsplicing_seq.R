@@ -101,7 +101,7 @@ circ_seq5_n <- getSeq(Hsapiens, circ_5exon_n)
 circ_seq3_n <- getSeq(Hsapiens, circ_3exon_n)
 
 circ_junction_p <- xscat(circ_seq3_p, circ_seq5_p)
-circ_junction_n <- xscat(circ_seq3_n, circ_seq5_n)
+circ_junction_n <- reverseComplement(xscat(circ_seq3_n, circ_seq5_n))
 
 #Name addition
 name_p <- subset(circ, circ$strand == "+")$circRNA_NAME
