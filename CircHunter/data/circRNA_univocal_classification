@@ -1,0 +1,6 @@
+chr1_100_160	intergenic	Isoform-001	001
+chr1_10_60	multiexon	Isoform-001	001	ENSG01	ENST01	ENSE01	001	+	ENSG01	ENST01	ENSE02	002	+
+chr1_135_190	intronic	OtherIsoform-001	001
+chr1_165_195	intronic	OtherIsoform-001	001
+chr1_70_120	multiexon	Isoform-201	201	ENSG01	ENST02	ENSE09	001	-	ENSG01	ENST02	ENSE08	002	-
+chr1_70_90	monoexon	Isoform-001	001	ENSG01	ENST01	ENSE03	003	+

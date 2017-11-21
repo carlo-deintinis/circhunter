@@ -175,11 +175,18 @@ public class MainFrame extends javax.swing.JFrame {
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jMenuItem5 = new javax.swing.JMenuItem();
+        AboutCirHunter = new javax.swing.JFrame();
+        jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         toolbar = new javax.swing.JToolBar();
         toolbar_open = new javax.swing.JButton();
         toolbar_save = new javax.swing.JButton();
         toolbar_settings = new javax.swing.JToggleButton();
         toolbar_rmdocker = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         VerticalSplitPanel = new javax.swing.JSplitPane();
         HorizontalSplitPanel = new javax.swing.JSplitPane();
         LeftPanel = new javax.swing.JPanel();
@@ -265,6 +272,8 @@ public class MainFrame extends javax.swing.JFrame {
         menu_edit = new javax.swing.JMenu();
         menu_edit_configure = new javax.swing.JMenuItem();
         menu_edit_rmdocker = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -433,6 +442,51 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenuItem5.setText("jMenuItem5");
 
+        AboutCirHunter.setResizable(false);
+        AboutCirHunter.getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        jLabel3.setIcon(new javax.swing.ImageIcon("/home/beccuti/GitLab/circhunter/src/pkg4seqgui/images/backgroundSmall.png")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        AboutCirHunter.getContentPane().add(jLabel3, gridBagConstraints);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/ok.png"))); // NOI18N
+        jButton1.setText("Ok");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        AboutCirHunter.getContentPane().add(jButton1, gridBagConstraints);
+
+        jLabel4.setText("Copyright © July 2017");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        AboutCirHunter.getContentPane().add(jLabel4, gridBagConstraints);
+
+        jLabel5.setText("Version  1.0.1");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        AboutCirHunter.getContentPane().add(jLabel5, gridBagConstraints);
+
+        jLabel6.setText("Carlo De Intinis, Giulio Ferrero and Marco Beccuti");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        AboutCirHunter.getContentPane().add(jLabel6, gridBagConstraints);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CircHunterGUI");
         setMinimumSize(new java.awt.Dimension(500, 400));
@@ -445,11 +499,13 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        toolbar.setBackground(new java.awt.Color(237, 237, 237));
         toolbar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         toolbar.setRollover(true);
 
         toolbar_open.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/52.png"))); // NOI18N
         toolbar_open.setToolTipText("Open a previous execution");
+        toolbar_open.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         toolbar_open.setFocusable(false);
         toolbar_open.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         toolbar_open.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -462,6 +518,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         toolbar_save.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/86.png"))); // NOI18N
         toolbar_save.setToolTipText("Save current executions");
+        toolbar_save.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 1, 10, 10));
         toolbar_save.setFocusable(false);
         toolbar_save.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         toolbar_save.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -474,6 +531,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         toolbar_settings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/preference.png"))); // NOI18N
         toolbar_settings.setToolTipText("Configure 4SeqGUI");
+        toolbar_settings.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         toolbar_settings.setFocusable(false);
         toolbar_settings.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         toolbar_settings.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -486,6 +544,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         toolbar_rmdocker.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/docker.png"))); // NOI18N
         toolbar_rmdocker.setToolTipText("Remove docker containers");
+        toolbar_rmdocker.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 1, 10, 10));
         toolbar_rmdocker.setFocusable(false);
         toolbar_rmdocker.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         toolbar_rmdocker.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -495,6 +554,18 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         toolbar.add(toolbar_rmdocker);
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/question.png"))); // NOI18N
+        jButton3.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        jButton3.setFocusable(false);
+        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        toolbar.add(jButton3);
 
         getContentPane().add(toolbar, java.awt.BorderLayout.NORTH);
 
@@ -1462,6 +1533,20 @@ public class MainFrame extends javax.swing.JFrame {
 
         menu_bar.add(menu_edit);
 
+        jMenu3.setText("?");
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pkg4seqgui/images/question.png"))); // NOI18N
+        jMenuItem1.setText("About CircHunter");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem1);
+
+        menu_bar.add(jMenu3);
+
         setJMenuBar(menu_bar);
 
         pack();
@@ -2382,8 +2467,8 @@ public class MainFrame extends javax.swing.JFrame {
             cmd[2]+= " -as "+selectedassembly+ " >& ./outputScript";
             System.out.println("Command:"+cmd[2]);
             // Debug for output string
-            JOptionPane.showMessageDialog(this, cmd);
-            
+            //JOptionPane.showMessageDialog(this, cmd);
+            JOptionPane.showMessageDialog(this, "CircHunter workflow task was scheduled","Confermation",JOptionPane.INFORMATION_MESSAGE); 
             //ProcessStatus.setText(pr.toString());
             
             Runtime rt = Runtime.getRuntime();   
@@ -2673,7 +2758,7 @@ public class MainFrame extends javax.swing.JFrame {
             cmd[2] += " >& ./outputScript";
             
             // Debug for output string
-            JOptionPane.showMessageDialog(this, cmd);
+            JOptionPane.showMessageDialog(this, "HashCirc workflow task was scheduled","Confermation",JOptionPane.INFORMATION_MESSAGE); 
             
             try{
             Runtime rt = Runtime.getRuntime();   
@@ -2901,10 +2986,34 @@ public class MainFrame extends javax.swing.JFrame {
  //Saving split panel preferences      
     }//GEN-LAST:event_formWindowClosing
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       AboutCirHunter.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        ShowAboutCirHunter(evt);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        ShowAboutCirHunter(evt);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void  ShowAboutCirHunter(java.awt.event.ActionEvent evt){
+        AboutCirHunter.pack(); 
+        AboutCirHunter.setLocationRelativeTo(null);                                       
+        AboutCirHunter.setVisible(true);
+    }
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        
+         //Anti-aliasing code
+        System.setProperty("awt.useSystemAAFontSettings","on");
+        System.setProperty("swing.aatext", "true");
+         //Anti-aliasing code
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -2946,6 +3055,7 @@ public class MainFrame extends javax.swing.JFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFrame AboutCirHunter;
     private javax.swing.JTextField Adapter3TextField;
     private javax.swing.JTextField Adapter5TextField;
     private javax.swing.JTree AnalysisTree;
@@ -3026,16 +3136,24 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField hc_vnum_kmer;
     private javax.swing.JTextField hc_voutput_folder;
     private javax.swing.JTextField hc_vthread;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

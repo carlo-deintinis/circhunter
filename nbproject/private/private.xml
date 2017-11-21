@@ -5,24 +5,24 @@
             <url>src/pkg4seqgui/MainFrame.java</url>
             <bookmark id="2">
                 <name/>
-                <line>1988</line>
+                <line>2004</line>
                 <key/>
             </bookmark>
             <bookmark id="1">
                 <name/>
-                <line>2302</line>
+                <line>2318</line>
                 <key/>
             </bookmark>
             <bookmark id="3">
                 <name/>
-                <line>2421</line>
+                <line>2437</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/carlo/NetBeansProjects/CircHunterGUI/src/pkg4seqgui/MainFrame.java</file>
+            <file>file:/home/beccuti/GitLab/circhunter/src/pkg4seqgui/MainFrame.java</file>
         </group>
     </open-files>
 </project-private>
