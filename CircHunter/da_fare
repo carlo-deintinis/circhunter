@@ -1,9 +1,0 @@
-PROGRAMMA PRINCIPALE
-
-- Export presente o no?
--- Non presente: usare script biomaRt
--- Presente: usare l'export dell'utente
-
-BSgenome.Hsapiens.UCSC.hg18,
-BSgenome.Hsapiens.UCSC.hg19,
-BSgenome.Hsapiens.UCSC.hg38
