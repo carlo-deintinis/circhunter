@@ -4,7 +4,6 @@ import os,sys
 
 """
 LAST UPDATED VERSION
--> WRITING CAZZUTO CLASSIFICATION
 -> WRITING UNIVOCAL CLASSIFICATION
 
 This is a script that allows to calculate the presumed linear sequences
