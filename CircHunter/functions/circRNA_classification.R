@@ -63,7 +63,7 @@ addmissing <- paste("cut -f 4", circ, "| sort -u > ../data/fullnames")
 system(addmissing, wait=TRUE)
 
 # Identification of circRNAs missed by bedtools
-addmissing <- "comm -3 ../data/fullnames ../data/names | awk 'BEGIN {FS=\"\t\"} {print $0\"_NA\tintertranscript\"}' > ../data/missed"
+addmissing <- "comm -3 ../data/fullnames ../data/names | awk 'BEGIN {FS=\"\t\"} {print $0\"_NA\tintergenic\"}' > ../data/missed"
 system(addmissing, wait=TRUE)
 
 # Adding circRNAs to classification
