@@ -5,7 +5,7 @@ import os,sys
 """
 POST UNIVOCAL
 This script will take the output of the univolcal circRNA classification file.
-The output is a file where only multiexon, monoexon and putative exon are repeated, while intronic, intergenic and intertranscript circRNAs are reported only one time.
+The output is a file where only multiexon, monoexon and putative exon are repeated, while intronic, intergenic circRNAs are reported only one time.
 """
 
 # Opening input file with univocal classification
