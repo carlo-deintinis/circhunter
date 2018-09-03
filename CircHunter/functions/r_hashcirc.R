@@ -164,6 +164,13 @@ while (i < threadnumber) {
 
 }
 
+# Merge ouput files
+merging <- "cd /circhunter/data/ ; for i in readcount* ; do cut -f 2 $i > $i.num ; done ; paste *num | awk '{c=0;for(i=1;i<=NF;++i){c+=$i}; pri
+nt c}' > count
+cut -f 1 readcount1 > id ; paste id count  > Read_count_temp ; echo -e \"ID\tCounts\" | cat - Read_count_temp > Read_count ; rm *num *temp read
+count* id count ; chmod 777 *"
+
+system(merging, wait=TRUE)
 # Cleanup of temporary files
 final_cleanup <- "rm -f ../data/CHTEMP* ../data/outputhashcirc* ../data/ALL*"
 system(final_cleanup, wait=TRUE)
