@@ -1,13 +1,13 @@
 # CircHunter
 a tool  for the characterization and quantification of circRNAs.
 
-##Requirements
+## Requirements
 
 [**Java-Oracle SE Runtime Environment 8.0**](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) or higher,
 
 [**Docker 1.31**](https://www.docker.com/)
 
-##To install
+## To install
 
 The CircHunter software suite is contained inside a Docker repository that can be obtained running the following command:
 ```
@@ -24,7 +24,8 @@ git clone https://github.com/carlo-deintinis/circhunter
 ````
 
 
-##To run
-A detailed desciption on how to use the tool is provided in the reference manual in the folder "" 
+## To run
+
+A detailed description on how to use the tool is provided in the reference manual provided in the folder "circhunter/CircHunter/manual/" 
 
 
