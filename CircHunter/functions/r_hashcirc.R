@@ -21,29 +21,29 @@ system (purgetemp, wait=TRUE)
 ## Converts FASTA files into FASTQ files
 ## Renames the FASTQ files and places them in the CircHunter data directory
 converter <- function(element){
-	
+
 	# Check first character of file
 	check <- file(element, "r")
 	first_line <- readLines(check, n=1)
-	
+
 	# Variables for file renaming
 	pathname <- substr(element, start=1, stop=3)
 	filename <- substr(element, start=4, stop=nchar(element))
-	newname <- paste(pathname, "data/CHTEMP", filename, sep="")
+	newname <- paste(pathname, "data/CHTEMP", filename, ".fastq", sep="")
 
 	# Check if conversion is needed
 	if (substr(first_line,0,1) == ">"){
-	
+
 		# Mounted FASTA files are converted into FASTQ files and renamed
-		cat ("FASTA file ", element, " will be converted to FASTQ\n", sep="")
-		conversion <- paste("python fasta_to_fastq.py ", element, " > ", newname,".fastq", sep="")
+		cat ("FASTA file", element, "will be converted to FASTQ\n", sep=" ")
+		conversion <- paste("python fasta_to_fastq.py", element, ">", newname, sep=" ")
 		system(conversion, wait=TRUE)
 
 	} else if ((substr(first_line,0,1) == "@")) {
-		
-		# Mounted FASTQ files are renamed
-		cat ("FASTQ file ", element, " will be only renamed\n", sep="")
-		renaming <- paste("cp ", element, " ", newname, ".fastq", sep="")
+
+		# Mounted FASTQ files are renamed creating a symbolic link in the working directory
+		cat ("FASTQ file", element, "will be only renamed\n", sep=" ")
+		renaming <- paste("ln -s", element, newname, sep=" ")
 		system(renaming, wait=TRUE)
 
 	}
@@ -52,7 +52,7 @@ converter <- function(element){
 		cat ("ERROR: Please provide a valid FASTA or FASTQ file\n")
 
 	}
-	
+
 
 }
 
@@ -62,7 +62,7 @@ converter <- function(element){
 ## Renames the resulting FASTQ files for hashcirc
 
 splitter <- function(index){
-	
+
 	cat("FASTQ files will be split into", index, "parts.\n", sep=" ")
 	splitcommand <- paste("perl fastq-splitter.pl -n", index, "../data/CHTEMP*", sep=" ")
 	system(splitcommand, wait=TRUE)
@@ -73,7 +73,7 @@ splitter <- function(index){
 ## Renames FASTQ files in a suitable way for HashCirc execution
 
 renamer <- function(oldname){
-	
+
 	name <- substr(oldname, start=9, stop=nchar(oldname))	# Obtains file name
 	nameparts <- strsplit(name, "\\.")[[1]]			# Splits file name into components
 
@@ -149,7 +149,7 @@ system(hashcircexecution, wait=TRUE)
 i = 0 # Counter for step 2
 
 while (i < threadnumber) {
-	
+
 	hashcircexecution_second <- paste(
 		"/hashcirc/AlignmentCirRNA",				# HashCirc program (second step)
 		"/circhunter/data/ALLbksj.fastq",			# Backsplicing junction sequences file
