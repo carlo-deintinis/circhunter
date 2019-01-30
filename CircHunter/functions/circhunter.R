@@ -16,12 +16,13 @@ writeLines(paste("Current scratch folder ID: ", tmp.id))
 dir.create(file.path(my_scratch))
 
 ## Useful paths
-path_exondata <- "/circhunter/genome"
-path_isoformdata <- "/circhunter/isoformdata"
-path_circrna <- "/circhunter/circRNA"
-path_bksjunctions <- "/circhunter/bksj"
-path_rnaseq <- "/circhunter/rnaseq"
-path_output_folder <- "/output"
+data.folder <- "/data"
+path_exondata <- file.path(data.folder, "genome")
+path_isoformdata <- file.path(data.folder, "isoformdata")
+path_circrna <- file.path(data.folder, "circRNA")
+path_bksjunctions <- file.path(data.folder, "bksj")
+path_rnaseq <- file.path(data.folder, "rnaseq")
+path_output_folder <- data.folder 
 
 ## Now main() begin
 writeLines("* Inside R")

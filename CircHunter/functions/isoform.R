@@ -5,7 +5,7 @@ isoform <- function(data.folder, isoformdata_file) {
 	#prefix temporary files
 	temp_prefix <- file.path(data.folder, "CHMAINISO")
 
-	cleanup <- paste("rm -f ", temp_prefix, "*", sep="")
+	cleanup <- paste0("rm -f ", temp_prefix, "*")
 	system(cleanup, wait=TRUE)
 
 	# ===============================
@@ -13,7 +13,7 @@ isoform <- function(data.folder, isoformdata_file) {
 	# ===============================
 
 	# Filtering for canonical chromosomes
-	canonical_isoforms <- paste(temp_prefix, "_genes_isoform_canonical", sep="")
+	canonical_isoforms <- paste0(temp_prefix, "_genes_isoform_canonical")
 
 	filter <- paste("awk -v OFS='\\t' '{if(",
 		" $3 == \"chr1\" || $3 == \"chr2\" || $3 == \"chr3\" ||",
@@ -30,7 +30,7 @@ isoform <- function(data.folder, isoformdata_file) {
 	)
 
 	# Obtaining isoform value
-	isoform_value <- paste(temp_prefix, "_isoform_value", sep="")
+	isoform_value <- paste0(temp_prefix, "_isoform_value")
 	getIsoformValue <- paste(
 		"cut -f 4", canonical_isoforms, 	#input file
 		"| rev | cut -c1-3 | rev", 			#obtaining isoform value
@@ -38,14 +38,14 @@ isoform <- function(data.folder, isoformdata_file) {
 	)
 
 	# Merge gene isoform and isoform values files
-	unsorted_isoform_values <- paste(temp_prefix, "_genes_isoforms_value_unsorted", sep="")
+	unsorted_isoform_values <- paste0(temp_prefix, "_genes_isoforms_value_unsorted")
 	assignGeneIsoform <- paste("paste", canonical_isoforms, isoform_value, ">", unsorted_isoform_values)
 
-	sorted_genes <- paste(temp_prefix, "_01_genes_isoforms_value", sep="")
+	sorted_genes <- paste0(temp_prefix, "_01_genes_isoforms_value")
 	sortGenes <- paste("sort -k 4,4 -k 5,5", unsorted_isoform_values, ">", sorted_genes)
 
 	# Obtaining transcripts from classification
-	transcripts_temp <- paste(temp_prefix, "_ENST", sep="")
+	transcripts_temp <- paste0(temp_prefix, "_ENST")
 
 	getTranscripts <- paste(
 		"cut -f 1", circRNA_classification, 	#input data
@@ -54,7 +54,7 @@ isoform <- function(data.folder, isoformdata_file) {
 	)
 
 	# Obtaining isoform data from ENST
-	transcripts_def <- paste(temp_prefix, "_ENST_ISO", sep="")
+	transcripts_def <- paste0(temp_prefix, "_ENST_ISO")
 
 	getIsoformData <- paste(
 		"python data_extractor.py",  # used program
@@ -66,7 +66,7 @@ isoform <- function(data.folder, isoformdata_file) {
 	)
 
 	# Pasting results
-	circ_isoforms <- paste(temp_prefix, "_circ_iso", sep="")
+	circ_isoforms <- paste0(temp_prefix, "_circ_iso")
 	pasteIsoCircData <- paste("paste",
 		transcripts_def, 			# input enst-iso file
 		circRNA_classification, 	# input classification file
@@ -74,10 +74,10 @@ isoform <- function(data.folder, isoformdata_file) {
 	)
 
 	# Obtaining unique classification
-	univocal_temp <- paste(temp_prefix, "_circRNA_univocal_classification", sep="")
+	univocal_temp <- paste0(temp_prefix, "_circRNA_univocal_classification")
 	uniqueClassification <- paste("python univocal_classifier.py", circ_isoforms, ">", univocal_temp)
 
-	univocal_unsorted <- paste(temp_prefix, "_unsorted_circRNA_univocal_classification", sep="")
+	univocal_unsorted <- paste0(temp_prefix, "_unsorted_circRNA_univocal_classification")
 	postClassification <- paste("python post_univocal.py", univocal_temp, ">", univocal_unsorted)
 
 

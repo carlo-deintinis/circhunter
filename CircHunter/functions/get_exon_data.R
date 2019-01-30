@@ -32,7 +32,7 @@ get_exon_data <- function(data.folder, assembly) {
 	exons <- getBM(attributes=my_attributes, mart=my_genome)
 
 	# Correcting chromosome names
-	exons$chromosome_name <- paste("chr", exons$chromosome_name, sep="")
+	exons$chromosome_name <- paste0("chr", exons$chromosome_name)
 
 	destination_path = file.path(data.folder, "genome")
 

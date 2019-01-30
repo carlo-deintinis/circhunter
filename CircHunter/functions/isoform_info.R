@@ -39,7 +39,7 @@ get_isoform_data <- function(data.folder, assembly) {
 	      mart = my_genome)
 
 	# Correcting chromosome names
-	isoform$chromosome_name <- paste("chr", isoform$chromosome_name, sep="")
+	isoform$chromosome_name <- paste0("chr", isoform$chromosome_name)
 
 	# Saving results to isoform file
 	isoform.file <- file.path(data.folder, "isoformdata")
