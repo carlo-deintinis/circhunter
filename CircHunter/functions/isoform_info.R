@@ -48,6 +48,3 @@ get_isoform_data <- function(data.folder, assembly) {
 
 	rm(isoform)
 }
-
-
-#get_isoform_data("..", assembly)

@@ -40,7 +40,6 @@ backsplicing_seq <- function(data.folder, assembly) {
 	input_filename <- file.path(data.folder, "backsplicing_coord.csv")
 	output_filename <- file.path(data.folder, "circRNA_backsplicing_sequences.fasta")
 
-#	circ <- read.csv("../data/backsplicing_coord.csv", header=TRUE, sep="\t")
 	circ <- read.csv(input_filename, header=TRUE, sep="\t")
 
 	# Creating objects needed for GRanges object
@@ -91,6 +90,5 @@ backsplicing_seq <- function(data.folder, assembly) {
 	names(circ_junction_n) <- name_n
 	circ_junction <- c(circ_junction_p, circ_junction_n)
 
-#	writeXStringSet(circ_junction, "../data/circRNA_backsplicing_sequences.fasta")
 	writeXStringSet(circ_junction, output_filename)
 }

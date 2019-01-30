@@ -47,11 +47,9 @@ if ("-f" %in% (args) | "--full" %in% (args) |
 
     writeLines("Downloading exon data...")
     get_exon_data(my_scratch, assembly)
-#  source("get_exon_data.R")
 
     writeLines("Downloading isoform data...")
     get_isoform_data(my_scratch, assembly)
- # source("isoform_info.R")
     writeLines("Downloads completed.")
 }
 
@@ -67,7 +65,6 @@ if ("-f" %in% (args) | "--full" %in% (args) |
         writeLines("Downloading exon data...")
         get_exon_data(my_scratch, assembly)
     }
-#	source("circRNA_classification.R")
     circRNA_classification(my_scratch, path_exondata, path_circrna)
 	writeLines("-- Classification completed --")
 
@@ -79,11 +76,9 @@ if ("-f" %in% (args) | "--full" %in% (args) |
     if(("-id" %in% (args) | "--isoformdata" %in% (args)) == FALSE) {
         writeLines("Downloading isoform data\n")
         get_isoform_data(my_scratch, assembly)
-#        source("isoform_info.R")
     }
     isoform(my_scratch, path_isoformdata)
     writeLines("-- Main isoform classification obtained --")
-#    source("isoform.R")
 }
 
 # Obtains CircRNA backsplicing junctions
@@ -94,7 +89,6 @@ if ("-f" %in% (args) | "--full" %in%(args) |
 
     backsplicing_junction_sequences(my_scratch, path_circrna)
 	writeLines("-- Sequences obtained --")
-    #	source("backsplicing_junction_sequences.R")
 }
 
 if ("-r" %in% (args) | "--readcount" %in% (args)) { # -f was excluded on purpose
@@ -109,7 +103,6 @@ if ("-r" %in% (args) | "--readcount" %in% (args)) { # -f was excluded on purpose
 
     r_hashcirc(my_scratch, path_rnaseq, path_bksjunctions, hcargs)
 	writeLines("-- HashCirc analysis completed --")
-    #	source("r_hashcirc.R") # Main hashcirc script
 }
 
 if (args[1] == "-q") {

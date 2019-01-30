@@ -20,13 +20,10 @@ backsplicing_junction_sequences <- function(data.folder, circrna.file) {
 		cut_command <- paste("cut -f 4,5 > ",  circtoseq_file)
 
 		conversion <- paste(cat_command, awk_command, cut_command, sep=" | ")
-
-#		conversion <- paste("cat", circ, "| awk -v OFS='\t' '{if ($5 == 1) {$5 = \"+\"} else if ($5 == -1) {$5 = \"-\"}; print }' | cut -f 4,5 > ../data/circtoseq")
 		system(conversion, wait=TRUE)
 
 	} else {
 		copy_cf <- paste("cut -f 4,5", circ, ">", circtoseq_file)
-#		copy_cf <- paste("cut -f 4,5", circ, " > ../data/circtoseq")
 		system(copy_cf, wait=TRUE)
 	}
 
@@ -38,17 +35,12 @@ backsplicing_junction_sequences <- function(data.folder, circrna.file) {
 
 	cleanup <- paste("rm", circtoseq_file)
 	system(cleanup, wait=TRUE)
-#	backsplicing <- "python 70bp_junction_coordinates.py ../data/circtoseq > ../data/backsplicing_coord"
-#	system(backsplicing, wait=TRUE)
-
-#	cleanup <- "rm ../data/circtoseq"
-#	system (cleanup, wait=TRUE)
 
 	# Header
 	create_header <- paste("circRNA_NAME", "chromosome", "strand", "ex5_start", "ex5_end", "ex3_start", "ex3_end", sep='\t')
 	header_file <- file.path(data.folder, "header_backsplicing")
 	out_file <- file(header_file)
-#out_file <- file("../data/header_backsplicing")
+
 	writeLines(create_header, out_file)
 	close(out_file)
 
@@ -59,11 +51,9 @@ backsplicing_junction_sequences <- function(data.folder, circrna.file) {
 	cut_command <- paste("cut -f 1,2,3,4,5,6,7", backsplicing_csv, sep=" > ")
 	backsplicing_coordinates <- paste(cat_command, cut_command, sep=" | ")
 
-#	backsplicing_coordinates <- "cat ../data/header_backsplicing ../data/backsplicing_coord | cut -f 1,2,3,4,5,6,7 > ../data/backsplicing_coord.csv"
 	system(backsplicing_coordinates, wait=TRUE)
 
 	cleanup <- paste("rm", header_file, backsplicing_coord)
-#	cleanup <- "rm ../data/header_backsplicing ../data/backsplicing_coord"
 	system(cleanup, wait=TRUE)
 
 	# Obtaining backsplicing junction sequences
@@ -72,28 +62,3 @@ backsplicing_junction_sequences <- function(data.folder, circrna.file) {
 	cleanup <- paste("rm", backsplicing_csv)
 	system(cleanup, wait=TRUE)
 }
-
-
-#backsplicing_junction_sequences("../data", circ)
-
-
-
-
-# Header
-# create_header <- paste("circRNA_NAME", "chromosome", "strand", "ex5_start", "ex5_end", "ex3_start", "ex3_end", sep='\t')
-# out_file <- file("../data/header_backsplicing")
-# writeLines(create_header, out_file)
-# close(out_file)
-
-# Creating csv file containing backsplicing junction sequences
-# backsplicing_coordinates <- "cat ../data/header_backsplicing ../data/backsplicing_coord | cut -f 1,2,3,4,5,6,7 > ../data/backsplicing_coord.csv"
-# system(backsplicing_coordinates, wait=TRUE)
-#
-# cleanup <- "rm ../data/header_backsplicing ../data/backsplicing_coord"
-# system(cleanup, wait=TRUE)
-
-
-#source("backsplicing_seq.R")
-
-#cleanup <- "rm ../data/backsplicing_coord.csv"
-#system(cleanup, wait=TRUE)
